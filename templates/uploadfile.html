@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>RFP DB</title>
+</head>
+
+<body>
+    <table>
+      <tr>
+	<td><a href="/search/">Search</a></td>
+	<td><a href="/add/">Add</a></td>
+	<td><a href="/upload/">Upload</td>
+      </tr>
+    </table>
+
+<form action="" method="post" enctype="multipart/form-data">
+<input type="file" name="file" id="file"><br>
+{% csrf_token %}
+<input type="submit" name="submit" value="Upload">
+</form>
+
+</body>
+
+</html>

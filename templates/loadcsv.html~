@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>RFP DB</title>
+</head>
+
+<body>
+
+<form action="" method="post" enctype="multipart/form-data">
+<input type="file" name="file" id="file">
+{% csrf_token %}
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+from djorm_pgfulltext.models import SearchManager
+from djorm_pgfulltext.fields import VectorField
+from django.db import models
+
+# Create your models here.
+
+class RFPAnswer(models.Model):
+    class Meta:
+        verbose_name = 'Answer'
+
+    answer = models.TextField(max_length=2000)
+    date_added = models.DateField()
+    last_used = models.DateField()
+    use_count = models.IntegerField()
+    search_index = VectorField()
+
+    objects = models.Manager()
+
+    search_manager = SearchManager(
+        fields = ('answer'),
+        auto_update_search_field = True)
+
+    def __unicode__(self):
+        return self.answer
+
+class RFPQuestion(models.Model):
+    class Meta:
+        verbose_name = 'Question'
+
+    question = models.TextField(max_length=500)
+    answer = models.TextField(max_length=2000)
+    date_added = models.DateField()
+    last_used = models.DateField()
+    search_index = VectorField()
+
+    objects = models.Manager()
+
+    search_manager = SearchManager(
+        fields = ('question', 'answer'),
+        auto_update_search_field = True)
+
+    def __unicode__(self):
+        return self.question
+
+ 
+    

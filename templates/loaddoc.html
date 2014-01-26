@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RFP DB</title>
+<style type="text/css">
+textarea {
+   font-size: 28pt;
+   font-family: Comic Sans;
+}
+</style>
+<!-- Place inside the <head> of your HTML -->
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "tinymce_4.0.12/tinymce.min.js" %}"></script>
+<script type="text/javascript">
+
+function search_selected(selection) {
+  //alert(selection);
+  var search_form, querystr, csrf_token;
+  // Start by creating a <form>
+  search_form = document.createElement('form');
+  search_form.action = '/search/';
+  search_form.method = 'POST';
+  search_form.target = 'iframe_search';
+  
+  // Next create the <input>s in the form and give them names and values
+  querystr = document.createElement('input');
+  querystr.type = 'hidden';
+  querystr.name = 'query';
+  querystr.value = selection;
+
+  search_form.appendChild(querystr);
+  document.getElementById('query_form').appendChild(search_form);
+  search_form.submit();  
+
+}
+
+</script>
+<script type="text/javascript">
+tinymce.init({
+    selector : "textarea",
+      toolbar: "search, add",
+        setup: function(editor) {
+            editor.addButton('search', {
+                text: 'Search',
+                icon: false,
+                onmousedown: function() {
+                var selection = tinyMCE.activeEditor.selection.getContent({format : 'raw'});
+                
+                search_selected(selection);    
+                }
+            });
+           editor.addButton('add', {
+                text: 'Add',
+                icon: false,
+                onmousedown: function() {
+                var selection = tinyMCE.activeEditor.selection.getContent({format : 'raw'});
+                
+                search_selected(selection);    
+                }
+            });
+        }
+
+ });
+</script>
+</head>
+
+<body>
+    <table>
+      <tr>
+	<td><a href="/search/">Search</a></td>
+	<td><a href="/add/">Add</a></td>
+	<td><a href="/upload/">Upload</td>
+      </tr>
+    </table>
+<div id="query_form"></div>
+
+ <!-- style="display:none;"
+
+<form method="post" rows="50">
+    {% csrf_token %}-->
+    <textarea name="rfptext" id="rfptext">{{ document }}</textarea>
+
+<iframe src="/search/" width="800" height="200" name="iframe_search"></iframe>
+
+</body>
+</html>
+

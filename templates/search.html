@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>RFP DB</title>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+	<td><a href="/search/">Search</a></td>
+	<td><a href="/add/">Add</a></td>
+	<td><a href="/upload/">Upload</td>
+      </tr>
+    </table>
+	
+    </table>
+    <form action="" method="post">
+    {% csrf_token %}
+    <p>Search: <input type="text" name="query"></p>
+    <input type="submit" value="Search">
+
+    {% if questions %}
+    <h3>Matching Questions:</h3>
+    <ol>
+    {% for question in questions %}
+
+    <li>Question: {{ question.question }}<br>Answer: {{ question.answer }}<br></li>
+
+    {% endfor %}
+    </ol>
+    {% endif %}
+
+    {% if answers %}
+    <h3>Matching Answers:</h3>
+    <ol>
+    {% for answer in answers %}
+
+    <li>{{ answer.answer }}</li>
+
+    {% endfor %}
+    </ol>
+    {% endif %}
+  </body>
+</html>

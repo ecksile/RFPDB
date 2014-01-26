@@ -1,0 +1,10 @@
+<html>
+  <head><title>RFP DB</title></head>
+  <body>
+
+    <form action="" method="post">
+    {% csrf_token %}
+    <p>Question: <input type="textarea" name="question"></p>
+    <p>Answer: <input type="textarea" name="answer"></p>
+    <input type="submit" value="Add">
+</form>
